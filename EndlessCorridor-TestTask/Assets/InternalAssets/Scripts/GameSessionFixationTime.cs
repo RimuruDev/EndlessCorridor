@@ -9,7 +9,6 @@ namespace RimuruDev
     public sealed class GameSessionFixationTime : MonoCache
     {
         [SerializeField] private GameDataContainer dataContainer;
-        [SerializeField] private bool isDebug;
         private bool isSave;
         private float timer;
         public float CurrentTimer => timer;
@@ -22,27 +21,20 @@ namespace RimuruDev
             timer = 0;
         }
 
-        private void Start()
-        {
-            StartCoroutine(nameof(Timer));
-        }
+        private void Start() => StartCoroutine(nameof(Timer));
 
         protected override void Run()
         {
-            if (dataContainer.isFailure && isSave == false) // TODO: Added Action<>
+            if (dataContainer.isFailure && !isSave) // TODO: Added Action<>
             {
                 PlayerPrefs.SetFloat("LastTime", timer);
                 isSave = true;
-
-                if (isDebug == false) return;
-                Debug.Log($"Time session: [{timer}].");
-                Debug.Log($"Load Last Time Session: [{PlayerPrefs.GetFloat("LastTime")}].");
             }
         }
 
         private IEnumerator Timer()
         {
-            while (dataContainer.isFailure == false)
+            while (!dataContainer.isFailure)
             {
                 timer++;
 

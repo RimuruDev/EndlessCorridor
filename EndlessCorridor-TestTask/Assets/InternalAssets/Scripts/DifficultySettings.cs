@@ -18,7 +18,6 @@ namespace RimuruDev
                     PlayerPrefs.SetInt("DifficultySettings", difficult[(int)DifficultyMode.Easy]);
                     break;
             }
-
             isSelectionDifficultySettings = true;
         }
 

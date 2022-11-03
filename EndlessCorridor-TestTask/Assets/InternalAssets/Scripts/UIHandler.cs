@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using NTC.Global.Cache;
 
 namespace RimuruDev
 {
-    public sealed class UIHandler : MonoBehaviour
+    public sealed class UIHandler : MonoCache
     {
-        [SerializeField] private GameDataContainer dataContainer;
-        [SerializeField] private GameSessionFixationTime gameSessionFixationTime;
         public Action OnUpdateDefeatText;
+        private GameDataContainer dataContainer;
+        private GameSessionFixationTime gameSessionFixationTime;
 
         private void Awake()
         {
@@ -21,15 +22,9 @@ namespace RimuruDev
                 gameSessionFixationTime = FindObjectOfType<GameSessionFixationTime>();
         }
 
-        private void OnEnable()
-        {
-            OnUpdateDefeatText += UpdateDefeatText;
-        }
+        protected override void OnEnabled() => OnUpdateDefeatText += UpdateDefeatText;
 
-        private void OnDisable()
-        {
-            OnUpdateDefeatText -= UpdateDefeatText;
-        }
+        protected override void OnDisabled() => OnUpdateDefeatText -= UpdateDefeatText;
 
         public void UpdateDefeatText()
         {

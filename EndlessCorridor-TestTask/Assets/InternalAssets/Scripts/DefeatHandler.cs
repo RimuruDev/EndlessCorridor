@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using NTC.Global.Cache;
 
 namespace RimuruDev
 {
-    public sealed class DefeatHandler : MonoBehaviour
+    public sealed class DefeatHandler : MonoCache
     {
-        [SerializeField] private GameDataContainer dataContainer;
-        [SerializeField] private UIHandler UIHandler;
         public Action OnDeadth;
+        private GameDataContainer dataContainer;
+        private UIHandler UIHandler;
 
         private void Awake()
         {
@@ -20,7 +21,7 @@ namespace RimuruDev
                 UIHandler = FindObjectOfType<UIHandler>();
         }
 
-        private void OnEnable()
+        protected override void OnEnabled()
         {
             OnDeadth += SetDefeatState;
             OnDeadth += StopTime;
@@ -28,7 +29,7 @@ namespace RimuruDev
             OnDeadth += ShowDefeatScreen;
         }
 
-        private void OnDisable()
+        protected override void OnDisabled()
         {
             OnDeadth -= SetDefeatState;
             OnDeadth -= StopTime;

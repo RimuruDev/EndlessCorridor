@@ -6,13 +6,9 @@ namespace RimuruDev
 {
     public sealed class LoadDifficultySettings : MonoBehaviour
     {
-        [SerializeField] private GameDataContainer dataContainer;
+        private GameDataContainer dataContainer = null;
 
-        private void Awake()
-        {
-            if (dataContainer == null)
-                dataContainer = FindObjectOfType<GameDataContainer>();
-        }
+        private void Awake() => dataContainer = FindObjectOfType<GameDataContainer>();
 
         private void Start() => dataContainer.currenDiddicultMode = PlayerPrefs.GetInt("DifficultySettings");
     }

@@ -8,14 +8,10 @@ namespace RimuruDev
     [RequireComponent(typeof(Rigidbody))]
     public sealed class InputHandler : MonoCache
     {
-        [SerializeField] private GameDataContainer dataContainer;
+        private GameDataContainer dataContainer = null;
         private Rigidbody playerRigidbody;
 
-        private void Awake()
-        {
-            if (dataContainer == null)
-                dataContainer = FindObjectOfType<GameDataContainer>();
-        }
+        private void Awake() => dataContainer = FindObjectOfType<GameDataContainer>();
 
         private void Start() => playerRigidbody = GetComponent<Rigidbody>();
 

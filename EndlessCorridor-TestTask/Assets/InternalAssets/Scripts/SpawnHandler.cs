@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using NTC.Global.Cache;
+using UnityEngine.SceneManagement;
 
 namespace RimuruDev
 {
-    public sealed class SpawnHandler : MonoBehaviour
+    public sealed class SpawnHandler : MonoCache
     {
         [SerializeField] private GameDataContainer dataContainer;
         [SerializeField] private ObjectPool objectPool;
@@ -35,9 +37,6 @@ namespace RimuruDev
             InitialSpawnCorridor();
 
             SpawnPlayer();
-
-            //StartCoroutine(nameof(CorridorSpawner));
-            //StartCoroutine(nameof(SpawnerObstacles));
         }
 
         public void StartAllCoroutine()
@@ -46,15 +45,9 @@ namespace RimuruDev
             StartCoroutine(nameof(SpawnerObstacles));
         }
 
-        private void OnEnable()
-        {
-            OnSpawnStart += StartAllCoroutine;
-        }
+        protected override void OnEnabled() => OnSpawnStart += StartAllCoroutine;
 
-        private void OnDisable()
-        {
-            OnSpawnStart -= StartAllCoroutine;
-        }
+        protected override void OnDisabled() => OnSpawnStart -= StartAllCoroutine;
 
         private void InitialSpawnCorridor()
         {
@@ -74,18 +67,18 @@ namespace RimuruDev
 
             dataContainer.playerInstance = player;
 
-            //objectPool?.OnPopulatingObjectPool.Invoke();
             OnSpawnStart?.Invoke();
         }
 
         private IEnumerator CorridorSpawner()
         {
-            if (dataContainer.playerInstance == null)
-                yield break;
-
             while (true)
             {
                 float wallEndPos = wallParent.transform.GetChild(0).transform.position.z + wallLength;
+
+                // Temp
+                if (dataContainer.playerInstance == null)
+                    UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
 
                 if (dataContainer.playerInstance.transform.position.z >= wallEndPos)
                 {
