@@ -15,11 +15,8 @@ namespace RimuruDev
 
         private void Awake()
         {
-            if (dataContainer == null)
-                dataContainer = FindObjectOfType<GameDataContainer>();
-
-            if (gameSessionFixationTime == null)
-                gameSessionFixationTime = FindObjectOfType<GameSessionFixationTime>();
+            dataContainer = Find<GameDataContainer>();
+            gameSessionFixationTime = Find<GameSessionFixationTime>();
         }
 
         protected override void OnEnabled() => OnUpdateDefeatText += UpdateDefeatText;

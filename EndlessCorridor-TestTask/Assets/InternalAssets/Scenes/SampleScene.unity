@@ -742,8 +742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7292a3c3bdb9741928c42139d65ff969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataContainer: {fileID: 1397437561}
-  gameSessionFixationTime: {fileID: 0}
 --- !u!4 &744101831
 Transform:
   m_ObjectHideFlags: 0
@@ -982,8 +980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a493015e6be1f46e1bd627920325c43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataContainer: {fileID: 1397437561}
-  UIHandler: {fileID: 744101830}
 --- !u!1 &993286670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,8 +1286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38fafbd09a7014df59d2111e4a10c2a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataContainer: {fileID: 1397437561}
-  objectPool: {fileID: 590236197}
+  dataContainer: {fileID: 0}
+  objectPool: {fileID: 0}
   spawnCorridorCount: 20
   spawnObstaclesCount: 8
 --- !u!1 &1335161774
@@ -1339,7 +1335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataContainer: {fileID: 1397437561}
-  isDebug: 0
 --- !u!1 &1397437559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,7 +1387,7 @@ MonoBehaviour:
   playerSpeed: 2
   jumpForce: 50
   accelerationMultiplier: 3
-  currenDiddicultMode: 0
+  currenDiddicultMode: 2
   deathScreen: {fileID: 1618716855}
   lastTime: {fileID: 1631560704}
   playingCount: {fileID: 1076852155}
@@ -1897,4 +1892,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb92b0d85bc64ababe79b446f17ff9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataContainer: {fileID: 1397437561}

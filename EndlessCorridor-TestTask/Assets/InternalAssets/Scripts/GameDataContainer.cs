@@ -35,16 +35,26 @@ namespace RimuruDev
 
         // --> Tested
         [Header("Object Pooling Settings")]
-        public List<GameObject> pooledObjects = null;
-        public int maxAmountPerPool = 8;
-        public float maxMotionDistance = 100;
-        public float spawnCooldown = 0.3f;
-        public Transform poopParent;
-        // <--
+        [HideInInspector] public List<GameObject> pooledObjects = null;
+        [HideInInspector] public int maxAmountPerPool = 8;
+        [HideInInspector] public float maxMotionDistance = 100;
+        [HideInInspector] public float spawnCooldown = 0.3f;
+        [HideInInspector] public Transform poopParent;
 
         private void Start()
         {
             isFailure = false;
+
+            if (currenDiddicultMode == 0)
+                currenDiddicultMode = 2;
         }
+
+#if !UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (currenDiddicultMode == 0)
+                currenDiddicultMode = 2;
+        }
+#endif
     }
 }

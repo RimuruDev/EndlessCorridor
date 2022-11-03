@@ -14,11 +14,8 @@ namespace RimuruDev
 
         private void Awake()
         {
-            if (dataContainer == null)
-                dataContainer = FindObjectOfType<GameDataContainer>();
-
-            if (UIHandler == null)
-                UIHandler = FindObjectOfType<UIHandler>();
+            dataContainer = Find<GameDataContainer>();
+            UIHandler = Find<UIHandler>();
         }
 
         protected override void OnEnabled()

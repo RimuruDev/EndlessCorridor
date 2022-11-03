@@ -1,19 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NTC.Global.Cache;
 
 namespace RimuruDev
 {
-    public sealed class PlayerJumpAccelerationController : MonoBehaviour
+    public sealed class PlayerJumpAccelerationController : MonoCache
     {
-        [SerializeField] private GameDataContainer dataContainer = null;
-        [SerializeField] private float cooldownTimeIncreaseSpeed = 15f;
+        private GameDataContainer dataContainer = null;
+        private float cooldownTimeIncreaseSpeed = 15f;
 
-        private void Awake()
-        {
-            if (dataContainer == null)
-                dataContainer = FindObjectOfType<GameDataContainer>();
-        }
+        private void Awake() => dataContainer = Find<GameDataContainer>();
 
         private void Start() => StartCoroutine(nameof(IncreaseSpeed));
 

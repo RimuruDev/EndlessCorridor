@@ -10,12 +10,12 @@ namespace RimuruDev
 {
     public sealed class SpawnHandler : MonoCache
     {
-        [SerializeField] private GameDataContainer dataContainer;
-        [SerializeField] private ObjectPool objectPool;
         [SerializeField] private int spawnCorridorCount = 20;
         [SerializeField] private int spawnObstaclesCount = 8;
         public Action OnSpawnStart;
 
+        private GameDataContainer dataContainer;
+        private ObjectPool objectPool;
         private GameObject wallParent;
         private GameObject obstacleParent;
         private float wallLength;
@@ -23,10 +23,8 @@ namespace RimuruDev
 
         private void Awake()
         {
-            if (dataContainer == null)
-                dataContainer = FindObjectOfType<GameDataContainer>();
-            if (objectPool == null)
-                objectPool = FindObjectOfType<ObjectPool>();
+            dataContainer = Find<GameDataContainer>();
+            objectPool = Find<ObjectPool>();
         }
 
         private void Start()
@@ -35,7 +33,6 @@ namespace RimuruDev
             obstacleParent = new GameObject("=== ObstaclesParentContainer ===");
 
             InitialSpawnCorridor();
-
             SpawnPlayer();
         }
 
@@ -77,8 +74,12 @@ namespace RimuruDev
                 float wallEndPos = wallParent.transform.GetChild(0).transform.position.z + wallLength;
 
                 // Temp
-                if (dataContainer.playerInstance == null)
-                    UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+                if (dataContainer.playerInstance == null)// && !dataContainer.isFailure)
+                {
+                    UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainMenuScene");
+
+                    yield break;
+                }
 
                 if (dataContainer.playerInstance.transform.position.z >= wallEndPos)
                 {
@@ -103,15 +104,23 @@ namespace RimuruDev
 
             while (true)
             {
-                if (obstacleParent.transform.GetChild(0).transform.position.z + 1 < dataContainer.playerInstance.transform.position.z)
-                {
-                    Destroy(obstacleParent.transform.GetChild(0).gameObject);
+                if (dataContainer.playerInstance != null)
+                    if (obstacleParent.transform.GetChild(0).transform.position.z + 1 < dataContainer.playerInstance.transform.position.z)
+                    {
+                        Destroy(obstacleParent.transform.GetChild(0).gameObject);
 
-                    Vector3 childPos = obstacleParent.transform.GetChild(obstacleParent.transform.childCount - 1).transform.position;
-                    Vector3 vector3 = new Vector3(childPos.x, UnityEngine.Random.Range(-wallLength, wallLength) / 2, childPos.z + N);
+                        Vector3 childPos = obstacleParent.transform.GetChild(obstacleParent.transform.childCount - 1).transform.position;
+                        Vector3 vector3 = new Vector3(childPos.x, UnityEngine.Random.Range(-wallLength, wallLength) / 2, childPos.z + N);
 
-                    Instantiate(dataContainer.obstacle, vector3, Quaternion.identity).transform.SetParent(obstacleParent.transform);
-                }
+                        Instantiate(dataContainer.obstacle, vector3, Quaternion.identity).transform.SetParent(obstacleParent.transform);
+                    }
+                    // Temp for tested
+                    else if (dataContainer.playerInstance == null && !dataContainer.isFailure)
+                    {
+                        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainMenuScene");
+
+                        yield break;
+                    }
                 yield return new WaitForFixedUpdate();
             }
         }

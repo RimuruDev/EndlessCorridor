@@ -11,9 +11,9 @@ namespace RimuruDev
         private GameDataContainer dataContainer = null;
         private Rigidbody playerRigidbody;
 
-        private void Awake() => dataContainer = FindObjectOfType<GameDataContainer>();
+        private void Awake() => dataContainer = Find<GameDataContainer>();
 
-        private void Start() => playerRigidbody = GetComponent<Rigidbody>();
+        private void Start() => playerRigidbody = Get<Rigidbody>();
 
         protected override void Run() => transform.Translate(0, 0, dataContainer.playerSpeed * dataContainer.currenDiddicultMode * Time.deltaTime);
 

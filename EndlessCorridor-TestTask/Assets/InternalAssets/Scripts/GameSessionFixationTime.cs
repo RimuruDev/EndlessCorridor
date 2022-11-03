@@ -8,18 +8,12 @@ namespace RimuruDev
 {
     public sealed class GameSessionFixationTime : MonoCache
     {
-        [SerializeField] private GameDataContainer dataContainer;
+        private GameDataContainer dataContainer;
         private bool isSave;
-        private float timer;
+        private float timer = 0;
         public float CurrentTimer => timer;
 
-        private void Awake()
-        {
-            if (dataContainer == null)
-                dataContainer = FindObjectOfType<GameDataContainer>();
-
-            timer = 0;
-        }
+        private void Awake() => dataContainer = Find<GameDataContainer>();
 
         private void Start() => StartCoroutine(nameof(Timer));
 
