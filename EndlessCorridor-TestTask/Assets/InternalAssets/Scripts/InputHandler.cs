@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NTC.Global.Cache;
 
 namespace RimuruDev
 {
     [RequireComponent(typeof(Rigidbody))]
-    public sealed class InputHandler : MonoBehaviour
+    public sealed class InputHandler : MonoCache
     {
         [SerializeField] private GameDataContainer dataContainer;
         private Rigidbody playerRigidbody;
@@ -18,9 +19,9 @@ namespace RimuruDev
 
         private void Start() => playerRigidbody = GetComponent<Rigidbody>();
 
-        private void Update() => transform.Translate(0, 0, dataContainer.playerSpeed * dataContainer.currenDiddicultMode * Time.deltaTime);
+        protected override void Run() => transform.Translate(0, 0, dataContainer.playerSpeed * dataContainer.currenDiddicultMode * Time.deltaTime);
 
-        private void FixedUpdate()
+        protected override void FixedRun()
         {
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NTC.Global.Cache;
 
 namespace RimuruDev
 {
-    public sealed class CameraController : MonoBehaviour
+    public sealed class CameraController : MonoCache
     {
         [SerializeField] private GameDataContainer dataContainer;
         [SerializeField] private Vector3 offset;
@@ -15,12 +16,12 @@ namespace RimuruDev
                 dataContainer = FindObjectOfType<GameDataContainer>();
         }
 
-        private void Start()
+        public void Start()
         {
             if (offset == Vector3.zero)
                 offset = transform.position;
         }
 
-        private void LateUpdate() => transform.position = new Vector3(0, 0, dataContainer.playerInstance.transform.position.z) + offset;
+        protected override void LateRun() => transform.position = new Vector3(0, 0, dataContainer.playerInstance.transform.position.z) + offset;
     }
 }

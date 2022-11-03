@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using NTC.Global.Cache;
 
 namespace RimuruDev
 {
-    public sealed class GameSessionFixationTime : MonoBehaviour
+    public sealed class GameSessionFixationTime : MonoCache
     {
         [SerializeField] private GameDataContainer dataContainer;
         [SerializeField] private bool isDebug;
@@ -26,7 +27,7 @@ namespace RimuruDev
             StartCoroutine(nameof(Timer));
         }
 
-        private void Update()
+        protected override void Run()
         {
             if (dataContainer.isFailure && isSave == false) // TODO: Added Action<>
             {

@@ -936,7 +936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6347274565f9449bbfe5f296aa7f817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataContainer: {fileID: 0}
+  dataContainer: {fileID: 1397437561}
   offset: {x: 1.5, y: 1, z: -2.7}
 --- !u!1 &988672563
 GameObject:
