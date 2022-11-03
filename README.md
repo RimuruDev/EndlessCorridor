@@ -1,6 +1,6 @@
 # EndlessCorridor
  
- # :pushpin:Sample
+ # :pushpin:Sample *old
 <p align="center">
   <a>
     <img alt="Made With Unity" src="https://img.shields.io/badge/made%20with-Unity-57b9d3.svg?logo=Unity">
@@ -24,6 +24,11 @@
 
 <p align="center">
   <img width="694" height="386" src="https://github.com/RimuruDev/EndlessCorridor/blob/main/GitResources/Example.gif">
+</p>
+
+ # :pushpin:Sample new
+ <p align="center">
+  <img width="694" height="386" src="https://github.com/RimuruDev/EndlessCorridor/blob/main/GitResources/Example_new.gif">
 </p>
 
 # :clipboard:Technical task by Leadz.monster:
