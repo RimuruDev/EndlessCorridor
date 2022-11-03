@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using NTC.Global.System;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using static NTC.Global.System.NightSugar;
+using Object = UnityEngine.Object;
 
-namespace NTC.Global.System
+namespace NTC.Global.Cache
 {
     public abstract class MonoAllocation : MonoBehaviour
     {
@@ -16,6 +17,15 @@ namespace NTC.Global.System
         private Dictionary<int, Component[]> _parentGets;
         private Dictionary<int, Component> _find;
         private Dictionary<int, Component[]> _finds;
+
+        public int GetID() => cachedInstanceId ??= GetInstanceID();
+        private int? cachedInstanceId;
+
+        public GameObject CachedGameObject => cachedGameObject ??= gameObject;
+        private GameObject cachedGameObject;
+
+        public Transform CachedTransform => cachedTransform ??= transform;
+        private Transform cachedTransform;
 
         private bool allocationEnabled = true;
 
@@ -45,7 +55,6 @@ namespace NTC.Global.System
         
         public T[] Finds<T>() where T : Object => FindObjectsOfType<T>();
         
-
         public T GetCached<T>() where T : Component
         {
             return GetSingleCached(_get, GetComponent<T>);
